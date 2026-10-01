@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.0 - 2026-10-01
 
 ### Fixed
 - PostgreSQL: `contains`/`startswith`/`endswith` are case-insensitive (`ILIKE`), found by running the suite on PostgreSQL 16.
