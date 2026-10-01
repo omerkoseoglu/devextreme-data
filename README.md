@@ -116,6 +116,7 @@ CustomFilterCompilers::registerBinary(function (BinaryExpressionInfo $i) {
 ## Framework integrations
 
 - Laravel / Eloquent: [`mihenk/devextreme-data-laravel`](../devextreme-data-laravel)
+- Symfony / Doctrine: [`mihenk/devextreme-data-symfony`](../devextreme-data-symfony)
 
 ## Demo
 
