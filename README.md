@@ -1,5 +1,7 @@
 # DevExtreme PHP Data
 
+> **Unofficial.** This is an independent, community-maintained port. It is not affiliated with, endorsed by or supported by Developer Express Inc. "DevExtreme" and "DevExpress" are trademarks of Developer Express Inc.
+
 Server-side data processing for [DevExtreme](https://js.devexpress.com/) widgets in PHP — a port of
 [DevExtreme.AspNet.Data](https://github.com/DevExpress/DevExtreme.AspNet.Data).
 It understands the request the DevExtreme client sends (`filter`, `sort`, `group`, `skip`, `take`,
@@ -115,8 +117,8 @@ CustomFilterCompilers::registerBinary(function (BinaryExpressionInfo $i) {
 
 ## Framework integrations
 
-- Laravel / Eloquent: [`mihenk/devextreme-data-laravel`](../devextreme-data-laravel)
-- Symfony / Doctrine: [`mihenk/devextreme-data-symfony`](../devextreme-data-symfony)
+- Laravel / Eloquent: `mihenk/devextreme-data-laravel`
+- Symfony / Doctrine: `mihenk/devextreme-data-symfony`
 
 ## Demo
 
