@@ -7,9 +7,6 @@ namespace DevExtreme\Data;
 use DateTimeInterface;
 use JsonSerializable;
 
-/**
- * A group in the resulting dataset.
- */
 final class Group implements JsonSerializable
 {
     /**

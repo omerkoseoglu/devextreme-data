@@ -7,9 +7,6 @@ namespace DevExtreme\Data\Aggregation;
 use DevExtreme\Data\Group;
 use DevExtreme\Data\SummaryInfo;
 
-/**
- * Calculates total summaries and (nested) group summaries over rows or groups of rows.
- */
 final class AggregateCalculator
 {
     /** @var list<Aggregator>|null */

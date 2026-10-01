@@ -9,9 +9,6 @@ use DateTimeInterface;
 use Stringable;
 use Throwable;
 
-/**
- * Value comparison helpers shared by sorting, min/max and filtering.
- */
 final class Compare
 {
     private const DATE_LIKE = '/^(\d{4}-\d{2}-\d{2})(?:[T ](\d{2}:\d{2})(?::(\d{2}))?(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})?$/';
@@ -56,9 +53,6 @@ final class Compare
         return Str::from($a) <=> Str::from($b);
     }
 
-    /**
-     * Ordinal or case-insensitive string comparison.
-     */
     public static function compareStrings(string $a, string $b, bool $ignoreCase): int
     {
         if ($ignoreCase) {

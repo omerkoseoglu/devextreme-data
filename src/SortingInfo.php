@@ -6,15 +6,10 @@ namespace DevExtreme\Data;
 
 use InvalidArgumentException;
 
-/**
- * A sorting parameter.
- */
 class SortingInfo
 {
     public function __construct(
-        /** The data field to be used for sorting. */
         public string $selector,
-        /** Whether data should be sorted in descending order. */
         public bool $desc = false,
     ) {
     }

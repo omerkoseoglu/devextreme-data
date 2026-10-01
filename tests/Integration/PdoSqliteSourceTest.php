@@ -29,8 +29,6 @@ final class PdoSqliteSourceTest extends SourceContractTestCase
         return new PdoSource($this->pdo, 'orders');
     }
 
-    // ---- SQL source specifics --------------------------------------------------------------
-
     public function testRejectsInjectionThroughFieldNames(): void
     {
         $source = $this->createSource(Fixtures::orders());

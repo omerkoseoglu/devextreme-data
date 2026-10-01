@@ -21,9 +21,6 @@ use DevExtreme\Data\Support\Compare;
  */
 final class RemoteGroupTransformer
 {
-    /**
-     * Number of result columns a summary occupies after COUNT(*).
-     */
     public static function width(SummaryInfo $summary): int
     {
         return match ($summary->summaryType) {

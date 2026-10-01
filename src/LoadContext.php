@@ -18,8 +18,6 @@ final class LoadContext
     ) {
     }
 
-    // ---- total count -----------------------------------------------------------------------
-
     public function requireTotalCount(): bool
     {
         return $this->options->requireTotalCount;
@@ -39,8 +37,6 @@ final class LoadContext
     {
         return $this->options->isSummaryQuery;
     }
-
-    // ---- paging ----------------------------------------------------------------------------
 
     public function skip(): int
     {
@@ -62,8 +58,6 @@ final class LoadContext
         return $this->options->paginateViaPrimaryKey ?? false;
     }
 
-    // ---- filter ----------------------------------------------------------------------------
-
     public function hasFilter(): bool
     {
         return $this->options->filter !== null && $this->options->filter !== [];
@@ -73,8 +67,6 @@ final class LoadContext
     {
         return $this->options->stringToLower ?? $this->stringToLowerDefault;
     }
-
-    // ---- grouping --------------------------------------------------------------------------
 
     /**
      * @return list<GroupingInfo>
@@ -98,8 +90,6 @@ final class LoadContext
     {
         return $this->options->remoteGrouping ?? $this->remoteGroupingDefault;
     }
-
-    // ---- sorting & primary key -------------------------------------------------------------
 
     public function hasSort(): bool
     {
@@ -180,8 +170,6 @@ final class LoadContext
         return $result;
     }
 
-    // ---- summary ---------------------------------------------------------------------------
-
     /**
      * @return list<SummaryInfo>
      */
@@ -213,9 +201,6 @@ final class LoadContext
         return $this->hasTotalSummary() || $this->hasGroupSummary();
     }
 
-    /**
-     * True when the only summaries are totals of type "count", so the total count answers them.
-     */
     public function summaryIsTotalCountOnly(): bool
     {
         if ($this->hasGroupSummary() || !$this->hasTotalSummary()) {
@@ -235,8 +220,6 @@ final class LoadContext
     {
         return $this->useRemoteGrouping() && !$this->summaryIsTotalCountOnly() && $this->hasSummary() && !$this->hasGroups();
     }
-
-    // ---- select ----------------------------------------------------------------------------
 
     /**
      * @return list<string>

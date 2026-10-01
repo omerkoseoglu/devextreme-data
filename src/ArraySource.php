@@ -11,10 +11,6 @@ use DevExtreme\Data\Filter\MemoryFilterCompiler;
 use DevExtreme\Data\Select\SelectHelper;
 use DevExtreme\Data\Sorting\Sorter;
 
-/**
- * Processes a DevExtreme load request over any in-memory iterable of arrays or objects.
- * Supports every feature: filter, sort, paging, grouping (with intervals), summaries, select.
- */
 final class ArraySource implements DataSourceInterface
 {
     /**

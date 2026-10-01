@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace DevExtreme\Data\Filter;
 
-/**
- * A group of operands combined with "and" or "or".
- */
 final class Logical extends Node
 {
     /**

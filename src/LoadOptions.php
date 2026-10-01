@@ -14,19 +14,14 @@ use JsonException;
  */
 class LoadOptions
 {
-    /** Whether the total number of data objects is required. */
     public bool $requireTotalCount = false;
 
-    /** Whether the number of top-level groups is required. */
     public bool $requireGroupCount = false;
 
-    /** Whether the query is made only to get the total number of data objects. */
     public bool $isCountQuery = false;
 
-    /** Whether the query is made only to calculate total summaries. */
     public bool $isSummaryQuery = false;
 
-    /** The number of data objects (or top-level groups) to skip. */
     public int $skip = 0;
 
     /** The number of data objects (or top-level groups) to load; 0 means "all". */

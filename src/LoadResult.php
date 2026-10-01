@@ -6,9 +6,6 @@ namespace DevExtreme\Data;
 
 use JsonSerializable;
 
-/**
- * A load result, in the exact shape the DevExtreme client expects.
- */
 final class LoadResult implements JsonSerializable
 {
     /**

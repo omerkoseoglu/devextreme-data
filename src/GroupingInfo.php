@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace DevExtreme\Data;
 
-/**
- * A grouping level.
- */
 final class GroupingInfo extends SortingInfo
 {
     public function __construct(

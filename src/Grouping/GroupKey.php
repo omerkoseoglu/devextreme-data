@@ -10,9 +10,6 @@ use DevExtreme\Data\GroupingInfo;
 use InvalidArgumentException;
 use Throwable;
 
-/**
- * Computes group keys, applying numeric ranges and date/time intervals.
- */
 final class GroupKey
 {
     public const DATE_INTERVALS = ['year', 'quarter', 'month', 'day', 'dayOfWeek', 'hour', 'minute', 'second'];

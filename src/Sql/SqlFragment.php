@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace DevExtreme\Data\Sql;
 
-/**
- * A piece of SQL with positional (`?`) bindings.
- */
 final class SqlFragment
 {
     /**
@@ -23,9 +20,6 @@ final class SqlFragment
         return $this->sql === '';
     }
 
-    /**
-     * Joins fragments with AND, wrapping each in parentheses. Empty fragments are skipped.
-     */
     public static function all(self ...$fragments): self
     {
         $sql = [];

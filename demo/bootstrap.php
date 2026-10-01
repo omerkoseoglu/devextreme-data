@@ -2,17 +2,10 @@
 
 declare(strict_types=1);
 
-/**
- * Shared demo bootstrap: autoloading, an auto-seeded SQLite database and small HTTP helpers.
- */
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 const DEMO_DB_FILE = __DIR__ . '/data/demo.sqlite';
 
-/**
- * Opens (and on first use creates + seeds) the demo SQLite database.
- */
 function demo_pdo(): PDO
 {
     static $pdo = null;
@@ -120,9 +113,6 @@ function demo_seed(PDO $pdo, int $orders = 3000): void
     $pdo->commit();
 }
 
-/**
- * Sends a JSON response and stops.
- */
 function demo_json(mixed $payload, int $status = 200): never
 {
     http_response_code($status);

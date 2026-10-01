@@ -44,8 +44,6 @@ abstract class SourceContractTestCase extends TestCase
         return Fixtures::ids($data);
     }
 
-    // ---- paging & counts -------------------------------------------------------------------
-
     public function testReturnsEverythingByDefault(): void
     {
         $result = $this->load();
@@ -85,8 +83,6 @@ abstract class SourceContractTestCase extends TestCase
         self::assertNull($result['data']);
     }
 
-    // ---- sorting ---------------------------------------------------------------------------
-
     public function testSortDescending(): void
     {
         self::assertSame([8, 7, 6, 5, 4, 3, 2, 1], $this->ids(['sort' => [['selector' => 'id', 'desc' => true]]]));
@@ -116,8 +112,6 @@ abstract class SourceContractTestCase extends TestCase
         // equal categories are ordered by the primary key that is appended to the sort
         self::assertSame([1, 2, 7, 3, 4, 8, 5, 6], $this->ids(['sort' => [['selector' => 'category']]]));
     }
-
-    // ---- filtering -------------------------------------------------------------------------
 
     /**
      * @return iterable<string, array{0: list<mixed>, 1: list<int>}>
@@ -186,8 +180,6 @@ abstract class SourceContractTestCase extends TestCase
         $this->load(['filter' => ['qty', 'approx', 1]]);
     }
 
-    // ---- select ----------------------------------------------------------------------------
-
     public function testSelect(): void
     {
         $result = $this->load(['select' => ['id', 'customer'], 'take' => 2]);
@@ -201,8 +193,6 @@ abstract class SourceContractTestCase extends TestCase
 
         self::assertSame([['customer' => 'Alice']], $result['data']);
     }
-
-    // ---- summaries without groups ----------------------------------------------------------
 
     public function testTotalSummary(): void
     {
@@ -266,8 +256,6 @@ abstract class SourceContractTestCase extends TestCase
         self::assertSame([], $result['data']);
         self::assertSame([null, null, null, 0], $result['summary']);
     }
-
-    // ---- grouping: expanded ----------------------------------------------------------------
 
     public function testExpandedGroup(): void
     {
@@ -347,8 +335,6 @@ abstract class SourceContractTestCase extends TestCase
         self::assertSame(3, $result['data'][0]['count']);
     }
 
-    // ---- grouping: collapsed (last level is not expanded) ----------------------------------
-
     public function testCollapsedGroupReturnsCounts(): void
     {
         $result = $this->load([
@@ -425,8 +411,6 @@ abstract class SourceContractTestCase extends TestCase
         self::assertEquals([280], $result['summary'], 'totals cover all groups, not the page');
     }
 
-    // ---- group intervals -------------------------------------------------------------------
-
     public function testGroupByYear(): void
     {
         $result = $this->load(['group' => [['selector' => 'ordered_at', 'groupInterval' => 'year', 'isExpanded' => false]]]);
@@ -481,8 +465,6 @@ abstract class SourceContractTestCase extends TestCase
         self::assertEquals([null, 0, 25, 50], array_column($result['data'], 'key'));
         self::assertSame([1, 2, 2, 3], array_column($result['data'], 'count'));
     }
-
-    // ---- misc ------------------------------------------------------------------------------
 
     public function testLoadResultIsJsonSerializable(): void
     {

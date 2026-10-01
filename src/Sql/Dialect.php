@@ -7,9 +7,6 @@ namespace DevExtreme\Data\Sql;
 use InvalidArgumentException;
 use PDO;
 
-/**
- * Database specific SQL fragments.
- */
 abstract class Dialect
 {
     public static function fromPdo(PDO $pdo): self
@@ -72,9 +69,6 @@ abstract class Dialect
         return 'LIKE';
     }
 
-    /**
-     * Escape character used in LIKE patterns.
-     */
     public function likeEscape(): string
     {
         return '!';

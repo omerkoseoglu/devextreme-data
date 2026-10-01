@@ -117,8 +117,6 @@ final class PdoSource implements DataSourceInterface
         return Pipeline::assemble($rows, $ctx, fn (): int => $this->count($where), $result, $deferPaging);
     }
 
-    // ---- option preparation ----------------------------------------------------------------
-
     private function prepareOptions(LoadOptions $options): LoadOptions
     {
         $prepared = clone $options;
@@ -139,8 +137,6 @@ final class PdoSource implements DataSourceInterface
 
         return $prepared;
     }
-
-    // ---- row loading -----------------------------------------------------------------------
 
     /**
      * @return list<array<string, mixed>>
@@ -250,8 +246,6 @@ final class PdoSource implements DataSourceInterface
             $fields,
         ));
     }
-
-    // ---- aggregates & grouping -------------------------------------------------------------
 
     private function loadAggregatesOnly(LoadContext $ctx, SqlFragment $where): LoadResult
     {
@@ -410,8 +404,6 @@ final class PdoSource implements DataSourceInterface
 
         throw new InvalidArgumentException(sprintf('Unsupported group interval "%s".', $interval));
     }
-
-    // ---- SQL building blocks ---------------------------------------------------------------
 
     private function buildWhere(LoadContext $ctx): SqlFragment
     {

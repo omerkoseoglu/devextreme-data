@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * Read-only lookup endpoint (used by the grid's "Customer" lookup editor).
- */
-
 use DevExtreme\Data\DataSourceLoader;
 use DevExtreme\Data\PdoSource;
 

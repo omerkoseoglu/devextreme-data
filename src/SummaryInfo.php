@@ -6,9 +6,6 @@ namespace DevExtreme\Data;
 
 use InvalidArgumentException;
 
-/**
- * A group or total summary definition.
- */
 final class SummaryInfo
 {
     public const SUM = 'sum';
@@ -18,9 +15,7 @@ final class SummaryInfo
     public const COUNT = 'count';
 
     public function __construct(
-        /** The data field to calculate the summary for. */
         public string $selector,
-        /** "sum", "min", "max", "avg", "count" or a registered custom aggregator name. */
         public string $summaryType,
     ) {
     }
