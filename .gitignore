@@ -1,0 +1,41 @@
+# Composer
+/vendor/
+composer.phar
+# libraries do not commit the lockfile
+/composer.lock
+
+# Tooling caches & reports
+/.phpunit.cache/
+/.phpunit.result.cache
+/.php-cs-fixer.cache
+/.phpstan.cache/
+/build/
+/coverage/
+/clover.xml
+
+# Demo runtime data (SQLite databases are generated on first run)
+/demo/data/*.sqlite
+/demo/data/*.sqlite-journal
+/demo/data/*.sqlite-wal
+/demo/data/*.sqlite-shm
+
+# Local environment
+.env
+.env.*
+!.env.example
+phpunit.xml
+.php-cs-fixer.php
+
+# IDE / OS
+/.idea/
+/.vscode/
+/.fleet/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Node (if demo assets are ever vendored locally)
+node_modules/
+
+# Lerd
+/demo/.php-version

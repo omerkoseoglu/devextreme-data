@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevExtreme PHP Data – demos</title>
+  <style>
+    :root { --bg: #f5f6f8; --card: #fff; --text: #1f2933; --muted: #667085; --accent: #2b6cb0; --border: #e4e7ec; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #14171c; --card: #1e232b; --text: #e6e9ee; --muted: #98a2b3; --accent: #63a4ef; --border: #2d3440; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+    main { max-width: 880px; margin: 0 auto; padding: 48px 16px; }
+    h1 { margin: 0 0 4px; font-size: 28px; }
+    p.lead { margin: 0 0 32px; color: var(--muted); }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    a.card { display: block; padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); color: inherit; text-decoration: none; transition: border-color .15s, transform .15s; }
+    a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    a.card h2 { margin: 0 0 6px; font-size: 18px; color: var(--accent); }
+    a.card p { margin: 0; color: var(--muted); font-size: 14px; }
+    code { font-size: 13px; background: var(--card); border: 1px solid var(--border); padding: 1px 6px; border-radius: 6px; }
+    footer { margin-top: 32px; color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>DevExtreme PHP Data</h1>
+  <p class="lead">Server-side filtering, sorting, paging, grouping and summaries for DevExtreme widgets — every request below is answered by this library.</p>
+
+  <div class="grid">
+    <a class="card" href="grid/index.html">
+      <h2>DataGrid (SQL)</h2>
+      <p>3000 orders in SQLite. Remote paging, sorting, filter row, header filters, search, grouping, group &amp; total summaries and full CRUD.</p>
+    </a>
+    <a class="card" href="pivot/index.html">
+      <h2>PivotGrid (SQL)</h2>
+      <p>Remote pivot over the same table: year / quarter / month date intervals and sum, count, avg summaries executed by <code>GROUP BY</code>.</p>
+    </a>
+    <a class="card" href="array/index.html">
+      <h2>In-memory array</h2>
+      <p>The same loader on a plain PHP array: DataGrid plus a paged, searchable SelectBox. No database.</p>
+    </a>
+  </div>
+
+  <footer>Endpoints live in <code>demo/api/</code>; the database is created on first request in <code>demo/data/</code>.</footer>
+</main>
+</body>
+</html>

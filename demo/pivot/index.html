@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PivotGrid – DevExtreme PHP Data</title>
+  <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/25.1.14/css/dx.light.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn3.devexpress.com/jslib/25.1.14/js/dx.all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/devextreme-aspnet-data@5.1.0/js/dx.aspnet.data.js"></script>
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    header { display: flex; align-items: baseline; gap: 16px; padding: 12px 16px; border-bottom: 1px solid #e4e7ec; }
+    header a { color: #2b6cb0; text-decoration: none; }
+    header h1 { margin: 0; font-size: 18px; }
+    #layout { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 12px; }
+    #chart { height: 300px; }
+  </style>
+</head>
+<body>
+<header>
+  <a href="../index.html">&larr; demos</a>
+  <h1>PivotGrid with remote operations (PdoSource / SQLite)</h1>
+</header>
+<div id="layout">
+  <div id="chart"></div>
+  <div id="pivot"></div>
+</div>
+
+<script>
+  const store = DevExpress.data.AspNet.createStore({
+    key: 'id',
+    loadUrl: '../api/orders.php',
+  });
+
+  const dataSource = new DevExpress.data.PivotGridDataSource({
+    remoteOperations: true,
+    store,
+    fields: [
+      { dataField: 'country', caption: 'Country', area: 'row', expanded: false },
+      { dataField: 'category', caption: 'Category', area: 'row' },
+      { dataField: 'order_date', caption: 'Year', dataType: 'date', groupInterval: 'year', area: 'column' },
+      { dataField: 'order_date', caption: 'Quarter', dataType: 'date', groupInterval: 'quarter', area: 'column' },
+      { dataField: 'order_date', caption: 'Month', dataType: 'date', groupInterval: 'month' },
+      { dataField: 'amount', caption: 'Revenue', dataType: 'number', summaryType: 'sum', area: 'data', format: { type: 'currency', currency: 'EUR', precision: 0 } },
+      { dataField: 'id', caption: 'Orders', summaryType: 'count', area: 'data' },
+    ],
+  });
+
+  const pivot = new DevExpress.ui.dxPivotGrid(document.getElementById('pivot'), {
+    dataSource,
+    allowSortingBySummary: true,
+    allowSorting: true,
+    allowFiltering: true,
+    allowExpandAll: true,
+    showBorders: true,
+    showColumnGrandTotals: true,
+    showRowGrandTotals: true,
+    fieldChooser: { enabled: true, height: 500 },
+    fieldPanel: { visible: true, showFilterFields: false, allowFieldDragging: true },
+    height: 520,
+  });
+
+  const chart = new DevExpress.viz.dxChart(document.getElementById('chart'), {
+    commonSeriesSettings: { type: 'stackedBar' },
+    tooltip: { enabled: true },
+    legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+    title: 'Revenue (follows the pivot)',
+  });
+
+  // the chart renders whatever the pivot currently shows
+  pivot.bindChart(chart, { alternateDataFields: false });
+</script>
+</body>
+</html>

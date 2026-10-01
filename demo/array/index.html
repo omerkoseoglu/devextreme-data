@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>In-memory array – DevExtreme PHP Data</title>
+  <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/25.1.14/css/dx.light.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn3.devexpress.com/jslib/25.1.14/js/dx.all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/devextreme-aspnet-data@5.1.0/js/dx.aspnet.data.js"></script>
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    header { display: flex; align-items: baseline; gap: 16px; padding: 12px 16px; border-bottom: 1px solid #e4e7ec; }
+    header a { color: #2b6cb0; text-decoration: none; }
+    header h1 { margin: 0; font-size: 18px; }
+    main { padding: 12px 16px; display: grid; gap: 16px; }
+    label { display: block; margin-bottom: 6px; color: #667085; font-size: 14px; }
+    #grid { height: 560px; }
+  </style>
+</head>
+<body>
+<header>
+  <a href="../index.html">&larr; demos</a>
+  <h1>Same loader over a plain PHP array (ArraySource)</h1>
+</header>
+<main>
+  <div>
+    <label for="picker">Product lookup: paged + server-side search (filter "contains" on name)</label>
+    <div id="picker"></div>
+  </div>
+  <div id="grid"></div>
+</main>
+
+<script>
+  const store = DevExpress.data.AspNet.createStore({
+    key: 'id',
+    loadUrl: '../api/products.php',
+  });
+
+  new DevExpress.ui.dxSelectBox(document.getElementById('picker'), {
+    dataSource: { store, paginate: true, pageSize: 10 },
+    valueExpr: 'id',
+    displayExpr: 'name',
+    searchEnabled: true,
+    searchExpr: 'name',
+    searchTimeout: 200,
+    minSearchLength: 0,
+    placeholder: 'Type to search 200 products...',
+    width: 420,
+  });
+
+  new DevExpress.ui.dxDataGrid(document.getElementById('grid'), {
+    dataSource: store,
+    remoteOperations: true,
+    height: '100%',
+    showBorders: true,
+    columnAutoWidth: true,
+    filterRow: { visible: true },
+    groupPanel: { visible: true },
+    grouping: { autoExpandAll: false },
+    paging: { pageSize: 15 },
+    pager: { showInfo: true, showPageSizeSelector: true, allowedPageSizes: [15, 30, 60] },
+    columns: [
+      { dataField: 'id', width: 70 },
+      'name',
+      { dataField: 'category', groupIndex: 0 },
+      { dataField: 'price', dataType: 'number', format: { type: 'currency', currency: 'EUR', precision: 2 } },
+      { dataField: 'stock', dataType: 'number' },
+      { dataField: 'released', dataType: 'date' },
+      { dataField: 'discontinued', dataType: 'boolean' },
+    ],
+    summary: {
+      totalItems: [
+        { column: 'id', summaryType: 'count' },
+        { column: 'price', summaryType: 'avg', valueFormat: { type: 'currency', currency: 'EUR', precision: 2 } },
+        { column: 'stock', summaryType: 'sum' },
+      ],
+      groupItems: [
+        { summaryType: 'count' },
+        { column: 'stock', summaryType: 'sum', showInGroupFooter: false, alignByColumn: true },
+      ],
+    },
+  });
+</script>
+</body>
+</html>

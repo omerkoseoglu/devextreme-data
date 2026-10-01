@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheDirectory=".phpunit.cache"
+         colors="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         beStrictAboutOutputDuringTests="true">
+  <testsuites>
+    <testsuite name="Unit">
+      <directory>tests/Unit</directory>
+    </testsuite>
+    <testsuite name="Integration">
+      <directory>tests/Integration</directory>
+    </testsuite>
+  </testsuites>
+
+  <source>
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
+
+  <php>
+    <ini name="error_reporting" value="-1"/>
+    <ini name="display_errors" value="1"/>
+    <!-- Optional: run the shared contract tests against real servers.
+         Leave unset to skip. Example:
+         <env name="DEVEXTREME_TEST_MYSQL_DSN" value="mysql:host=127.0.0.1;dbname=test;charset=utf8mb4"/> -->
+    <env name="DEVEXTREME_TEST_MYSQL_DSN" value="" force="false"/>
+    <env name="DEVEXTREME_TEST_MYSQL_USER" value="root" force="false"/>
+    <env name="DEVEXTREME_TEST_MYSQL_PASSWORD" value="" force="false"/>
+    <env name="DEVEXTREME_TEST_PGSQL_DSN" value="" force="false"/>
+    <env name="DEVEXTREME_TEST_PGSQL_USER" value="postgres" force="false"/>
+    <env name="DEVEXTREME_TEST_PGSQL_PASSWORD" value="" force="false"/>
+  </php>
+</phpunit>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DataGrid – DevExtreme PHP Data</title>
+  <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/25.1.14/css/dx.light.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn3.devexpress.com/jslib/25.1.14/js/dx.all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/devextreme-aspnet-data@5.1.0/js/dx.aspnet.data.js"></script>
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    header { display: flex; align-items: baseline; gap: 16px; padding: 12px 16px; border-bottom: 1px solid #e4e7ec; }
+    header a { color: #2b6cb0; text-decoration: none; }
+    header h1 { margin: 0; font-size: 18px; }
+    #grid { height: calc(100vh - 54px); padding: 8px; box-sizing: border-box; }
+  </style>
+</head>
+<body>
+<header>
+  <a href="../index.html">&larr; demos</a>
+  <h1>DataGrid with server-side operations (PdoSource / SQLite)</h1>
+</header>
+<div id="grid"></div>
+
+<script>
+  const ordersStore = DevExpress.data.AspNet.createStore({
+    key: 'id',
+    loadUrl: '../api/orders.php',
+    insertUrl: '../api/orders.php',
+    updateUrl: '../api/orders.php',
+    deleteUrl: '../api/orders.php',
+    onBeforeSend(operation, ajaxSettings) {
+      ajaxSettings.timeout = 15000;
+    },
+  });
+
+  const customersStore = DevExpress.data.AspNet.createStore({
+    key: 'id',
+    loadUrl: '../api/customers.php',
+    loadMode: 'raw',
+  });
+
+  new DevExpress.ui.dxDataGrid(document.getElementById('grid'), {
+    dataSource: ordersStore,
+    remoteOperations: true,
+    height: '100%',
+    showBorders: true,
+    columnAutoWidth: true,
+    allowColumnReordering: true,
+    allowColumnResizing: true,
+    hoverStateEnabled: true,
+    rowAlternationEnabled: true,
+    filterRow: { visible: true },
+    headerFilter: { visible: true },
+    searchPanel: { visible: true, width: 240, placeholder: 'Search...' },
+    groupPanel: { visible: true },
+    grouping: { autoExpandAll: false },
+    columnChooser: { enabled: true },
+    sorting: { mode: 'multiple' },
+    paging: { pageSize: 20 },
+    pager: { showPageSizeSelector: true, allowedPageSizes: [10, 20, 50, 100], showInfo: true },
+    editing: {
+      mode: 'popup',
+      allowAdding: true,
+      allowUpdating: true,
+      allowDeleting: true,
+      useIcons: true,
+      popup: { title: 'Order', showTitle: true, width: 560, height: 520 },
+      form: { colCount: 2 },
+    },
+    columns: [
+      { dataField: 'id', caption: 'ID', width: 70, allowEditing: false, sortOrder: 'desc', sortIndex: 0 },
+      {
+        dataField: 'customer_id',
+        caption: 'Customer',
+        lookup: { dataSource: customersStore, valueExpr: 'id', displayExpr: 'name' },
+        // server-side operations work on the stored denormalised name, so sort/filter on it
+        calculateSortValue: 'customer',
+        allowGrouping: false,
+        validationRules: [{ type: 'required' }],
+      },
+      { dataField: 'country', allowEditing: false, allowHeaderFiltering: true },
+      { dataField: 'product', validationRules: [{ type: 'required' }] },
+      {
+        dataField: 'category',
+        lookup: { dataSource: ['Books', 'Games', 'Music', 'Office'] },
+        validationRules: [{ type: 'required' }],
+      },
+      {
+        dataField: 'amount',
+        dataType: 'number',
+        format: { type: 'currency', currency: 'EUR', precision: 2 },
+        validationRules: [{ type: 'required' }, { type: 'range', min: 0 }],
+      },
+      { dataField: 'qty', caption: 'Qty', dataType: 'number', width: 70, validationRules: [{ type: 'range', min: 1 }] },
+      {
+        dataField: 'order_date',
+        caption: 'Order date',
+        dataType: 'datetime',
+        format: 'yyyy-MM-dd HH:mm',
+      },
+      { dataField: 'shipped', dataType: 'boolean', width: 90 },
+      { dataField: 'note', visible: false },
+    ],
+    summary: {
+      totalItems: [
+        { column: 'id', summaryType: 'count' },
+        { column: 'amount', summaryType: 'sum', valueFormat: { type: 'currency', currency: 'EUR', precision: 2 } },
+        { column: 'amount', summaryType: 'avg', displayFormat: 'Avg: {0}', valueFormat: { type: 'currency', currency: 'EUR', precision: 2 } },
+      ],
+      groupItems: [
+        { summaryType: 'count' },
+        { column: 'amount', summaryType: 'sum', showInGroupFooter: false, alignByColumn: true, valueFormat: { type: 'currency', currency: 'EUR', precision: 2 } },
+        { column: 'amount', summaryType: 'max', showInGroupFooter: false, alignByColumn: true, displayFormat: 'Max: {0}', valueFormat: { type: 'currency', currency: 'EUR', precision: 2 } },
+      ],
+    },
+    onInitNewRow(e) {
+      e.data.order_date = new Date();
+      e.data.qty = 1;
+      e.data.shipped = false;
+    },
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{
+    "name": "mihenk/devextreme-data",
+    "description": "Server-side data processing for DevExtreme widgets in PHP: filtering, sorting, paging, grouping, summaries and select over arrays and SQL (PDO). A PHP port of DevExtreme.AspNet.Data.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "devextreme",
+        "devexpress",
+        "datagrid",
+        "pivotgrid",
+        "datasource",
+        "server-side",
+        "pagination",
+        "grouping",
+        "pdo",
+        "aspnet-data"
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^10.5 || ^11.0 || ^12.0"
+    },
+    "suggest": {
+        "ext-pdo": "Required for PdoSource (SQLite, MySQL/MariaDB and PostgreSQL are supported)"
+    },
+    "autoload": {
+        "psr-4": {
+            "DevExtreme\\Data\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DevExtreme\\Data\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:unit": "phpunit --testsuite Unit",
+        "test:integration": "phpunit --testsuite Integration",
+        "test:coverage": "phpunit --coverage-html build/coverage",
+        "analyse": "phpstan analyse --memory-limit=512M",
+        "cs": "php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix",
+        "check": [
+            "@cs",
+            "@analyse",
+            "@test"
+        ],
+        "demo": "php -S localhost:8000 -t demo demo/router.php"
+    },
+    "scripts-descriptions": {
+        "test": "Run the whole PHPUnit suite",
+        "analyse": "Run PHPStan",
+        "cs": "Check code style (dry run)",
+        "cs:fix": "Fix code style",
+        "check": "Code style + static analysis + tests",
+        "demo": "Start the demo application on http://localhost:8000"
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
