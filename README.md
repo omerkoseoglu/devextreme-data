@@ -96,9 +96,6 @@ interpolated unless they are a key of the `columns` whitelist or a plain identif
   the database collation (`false`). `contains`/`startswith`/`endswith` are case-insensitive: `LIKE` on SQLite/MySQL (MySQL follows the column collation), `ILIKE` on PostgreSQL.
 - Sorting strings: case-insensitive in memory, collation-defined in SQL. `NULL` sorts first ascending in both.
 - Groups with a `groupInterval` are ordered by the interval key (Jan..Dec), not by the raw value.
-- Date interval grouping (`year`, `month`, ...) needs real date/time columns on PostgreSQL (`EXTRACT` does not accept text).
-- ISO-8601 filter dates (`2024-05-01T10:00:00.000Z`) are compared as wall-clock time; timezones are not converted.
-- Expanded groups in SQL are built in PHP from the filtered, sorted rows (like the LINQ-to-SQL behaviour of the original).
 
 ## Extending
 
@@ -116,6 +113,29 @@ CustomFilterCompilers::registerBinary(function (BinaryExpressionInfo $i) {
         : fn ($item) => in_array(Accessor::read($item, $i->field), $i->value, true);
 });
 ```
+
+## Known limitations
+
+- **Dates and timezones.** ISO-8601 filter values (`2024-05-01T10:00:00.000Z`) are compared as wall-clock time; the
+  timezone designator is ignored, nothing is converted. A browser serialises a local `Date` as UTC, so a record saved at
+  10:00 in UTC+3 is stored as 07:00 unless your app converts. Store and compare in one timezone.
+- **Date-only filters in SQL** (`["at", ">=", "2024-05-01"]`) are bound as the plain string and compared by the database
+  with the stored value; `ArraySource` treats it as midnight. Equality on a datetime column therefore differs between the two.
+- **PostgreSQL date intervals** (`year`, `month`, ... grouping) need real `date`/`timestamp` columns; `EXTRACT` does not
+  accept text columns.
+- **Paging order.** Without a primary key (`primaryKey` option) or `defaultSort`, SQL does not guarantee a stable order
+  between pages. Set one.
+- **Expanded groups load every matching row.** Like the original, `PdoSource` builds expanded groups in PHP from the
+  filtered, sorted rows (paging applies to top-level groups afterwards). Collapsed groups (`isExpanded: false`, which is
+  what DataGrid and PivotGrid request) use `GROUP BY` and are cheap. Custom aggregators also force this in-PHP path.
+- **`ArraySource` holds everything in memory.** Use it for small or already-loaded data, not for large tables.
+- **String ordering and equality** follow the database collation in SQL, case-insensitive comparison in memory (see above).
+  `LIKE` case behaviour on MySQL follows the column collation.
+- **Numbers.** SQL `SUM`/`AVG` results are normalised to `int`/`float`; very large or high-precision `DECIMAL` sums can
+  lose precision. Booleans come back as `0`/`1` on most drivers.
+- **Rows with `DateTimeInterface` values** (in `ArraySource`) are serialised by `json_encode` as objects; convert them to
+  strings first. Group keys that are dates are emitted as ISO-8601.
+- **Databases.** SQLite, MySQL/MariaDB and PostgreSQL only. For others extend `Sql\Dialect` and pass it to `PdoSource`.
 
 ## Framework integrations
 
