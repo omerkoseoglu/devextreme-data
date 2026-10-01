@@ -2,12 +2,12 @@
 
 The three packages are released in this order, because the integrations depend on the core package:
 
-1. **`mihenk/devextreme-data`** (this repository)
+1. **`omerkoseoglu/devextreme-data`** (this repository)
    - `composer check` (code style, PHPStan, tests) is green; CI is green on all PHP versions.
    - Move the "Unreleased" entries of `CHANGELOG.md` under the new version and date.
    - `git tag -a v0.1.0 -m "0.1.0" && git push origin main --tags`
    - Packagist picks the tag up (webhook) and lists the version.
-2. **`mihenk/devextreme-data-laravel`** and **`mihenk/devextreme-data-symfony`**
+2. **`omerkoseoglu/devextreme-data-laravel`** and **`omerkoseoglu/devextreme-data-symfony`**
    - Wait until the core version is visible on Packagist (their CI installs it from there).
    - Same checklist, then tag `v0.1.0`.
 

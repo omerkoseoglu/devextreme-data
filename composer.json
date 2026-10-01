@@ -1,5 +1,5 @@
 {
-    "name": "mihenk/devextreme-data",
+    "name": "omerkoseoglu/devextreme-data",
     "description": "Server-side data processing for DevExtreme widgets in PHP: filtering, sorting, paging, grouping, summaries and select over arrays and SQL (PDO). A PHP port of DevExtreme.AspNet.Data.",
     "type": "library",
     "license": "MIT",

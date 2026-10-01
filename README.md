@@ -15,7 +15,7 @@ It understands the request the DevExtreme client sends (`filter`, `sort`, `group
 ## Install
 
 ```bash
-composer require mihenk/devextreme-data
+composer require omerkoseoglu/devextreme-data
 ```
 
 ## Quick start
@@ -117,8 +117,8 @@ CustomFilterCompilers::registerBinary(function (BinaryExpressionInfo $i) {
 
 ## Framework integrations
 
-- Laravel / Eloquent: `mihenk/devextreme-data-laravel`
-- Symfony / Doctrine: `mihenk/devextreme-data-symfony`
+- Laravel / Eloquent: `omerkoseoglu/devextreme-data-laravel`
+- Symfony / Doctrine: `omerkoseoglu/devextreme-data-symfony`
 
 ## Demo
 
