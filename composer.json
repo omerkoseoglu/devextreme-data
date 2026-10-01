@@ -15,6 +15,7 @@
         "pdo",
         "aspnet-data"
     ],
+    "homepage": "https://github.com/omerkoseoglu/devextreme-data",
     "require": {
         "php": "^8.1",
         "ext-json": "*",
@@ -66,5 +67,9 @@
         "optimize-autoloader": true
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "support": {
+        "issues": "https://github.com/omerkoseoglu/devextreme-data/issues",
+        "source": "https://github.com/omerkoseoglu/devextreme-data"
+    }
 }
